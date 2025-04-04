@@ -42,9 +42,10 @@ def get_sentiment(text: list) -> list:
     
     for each in completion.choices[0].message.content.splitlines():
         output.append(each.strip())
+    
+    return output
 
-
-    sentiments = {'positive':[], 'neutral':[], 'negative':[], 'irrelevant':[]}
+    # sentiments = {'positive':[], 'neutral':[], 'negative':[], 'irrelevant':[]}
 
     # for data in range(len(text)):
     #     sentiments[output[data]].append(text[data])
@@ -55,4 +56,3 @@ def get_sentiment(text: list) -> list:
     # with open("sentiment_output.json", "w") as file:
     #     json.dump(sentiments, file, indent=4)
 
-    return output
