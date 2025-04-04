@@ -1,9 +1,16 @@
 from openai import OpenAI
 client = OpenAI()
+import json
 
 def get_sentiment(text: list) -> list:
     """
-    INSERT DOCSTRING HERE
+    This function takes in a list of strings and uses the OpenAI API to analyze the sentiment of each review. 
+    Args: 
+        text (list): A list of strings of reviews to be analyzed for sentiment.
+    
+    Returns:
+        list: A list of strings representing the sentiment of each review including
+        'positive', 'neutral', 'negative' or 'irrelevant'.
     """
     system_prompt = """You are an expert in interpreting human sentiment across different cultures. Ensure each review (each item in the list) should be evaluated as a whole and not just by the keywords. For example, a review may start with 'I want to love this ....' but end with 'I was shocked with how disgusting the taste was.' This would be categorized as a negative even though there may be positive words like love and excited. 
     """
@@ -37,9 +44,13 @@ def get_sentiment(text: list) -> list:
         output.append(each.strip())
 
 
-    file = open("sentiment_output.text","w")
-    for data in range(len(output)):
-        file.write(f"sentiment: {output[data]} - review: {text[data]}\n")
-    file.close()
+    sentiments = {'positive':[], 'neutral':[], 'negative':[], 'irrelevant':[]}
+
+    for data in range(len(text)):
+        sentiments[output[data]].append(text[data])
+
+        
+    # with open("sentiment_output.json", "w") as file:
+    #     json.dump(sentiments, file, indent=4)
 
     return output
