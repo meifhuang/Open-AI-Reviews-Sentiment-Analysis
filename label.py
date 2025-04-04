@@ -12,7 +12,7 @@ def get_sentiment(text: list) -> list:
         list: A list of strings representing the sentiment of each review including
         'positive', 'neutral', 'negative' or 'irrelevant'.
     """
-    system_prompt = """You are an expert in interpreting human sentiment across different cultures. Ensure each review (each item in the list) should be evaluated as a whole and not just by the keywords. For example, a review may start with 'I want to love this ....' but end with 'I was shocked with how disgusting the taste was.' This would be categorized as a negative even though there may be positive words like love and excited. 
+    system_prompt = """You are an expert in interpreting human sentiment across different cultures. Ensure each review (each item in the list) should be evaluated as a whole and not just by the keywords. For example, a review may start with 'I want to love this ....' but end with 'I was shocked with how disgusting the taste was.' This would be categorized as a negative even though there may be positive words like love and excited. Try to be as quick and consistent as possible. Thank you.
     """
 
     prompt = f"""
@@ -46,9 +46,11 @@ def get_sentiment(text: list) -> list:
 
     sentiments = {'positive':[], 'neutral':[], 'negative':[], 'irrelevant':[]}
 
-    for data in range(len(text)):
-        sentiments[output[data]].append(text[data])
+    # for data in range(len(text)):
+    #     sentiments[output[data]].append(text[data])
 
+    # for key in sentiments:
+    #     print(len(sentiments[key]))
         
     # with open("sentiment_output.json", "w") as file:
     #     json.dump(sentiments, file, indent=4)
