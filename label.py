@@ -23,6 +23,15 @@ def get_sentiment(text: list) -> list:
     {text}
     """
 
+    allStrings = True
+    for data in text:
+        if data != str(data):
+            allStrings = False
+            break   
+
+    if len(text) == 0 or not allStrings:
+        return "Wrong input. text must be an array of strings." 
+
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
@@ -31,14 +40,6 @@ def get_sentiment(text: list) -> list:
         ]
     )
     output = []
-    allStrings = True
-    for data in text:
-        if data != str(data):
-            allStrings = False
-            break
-
-    if len(text) == 0 or not allStrings:
-        return "Wrong input. text must be an array of strings."    
     
     for each in completion.choices[0].message.content.splitlines():
         output.append(each.strip())
